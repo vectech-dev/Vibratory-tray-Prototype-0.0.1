@@ -1,0 +1,11 @@
+Virbatory tray 0.0.1 
+==================
+ 
+
+* Tray runs for 400ms in each cycle with 90% pwm.
+  * 90% pwm is the minimum for the motor to start rotation.
+    * Motor can continue running at 80% pwm once it reaches maximum speed.
+  * The motor takes about ~400ms to reach the maximum speed.
+    * Running the motor at 90% pwm for 300 ms does not move the mosquitoes as we haven't achieved the maximum speed at that point of time.
+  * The mosquitoes move for about 20-25mm in each cycle. In other words, everything in the last 20-25mm section is going to fall off the vibratory tray.
+  * The goal is to reduce the distance to a few mm(3-5) to make sure it is only mosquito that falls off the edge of the tray.  
