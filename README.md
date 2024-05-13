@@ -16,3 +16,11 @@ Virbatory tray 0.0.1
   * 100% pwm for 50ms to start the motor and speed it up.
   * 300 ms of 80% to move the mosquito.
   * The moving distance is 7-15mm.
+
+ver 0.0.3 
+----
+
+  * 100% pwm for 50ms to start the motor and speed it up.
+  * 300 ms of 70% to move the mosquito.
+  * The moving distance is 1-5mm.
+  * ### con: ### The moevemnt of mosquitoes is unreliable. They are riding up on the ramp and clumped up the one time I tried using these values.

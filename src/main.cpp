@@ -36,7 +36,7 @@ void setup()
   digitalWrite(in2, HIGH);
 
 
-  pwm = map(80,0,100,0,255);
+  pwm = map(70,0,100,0,255);
   analogWrite(enA,pwm);
 
   Serial.begin(115200);
