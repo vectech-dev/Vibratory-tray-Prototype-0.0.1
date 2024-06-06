@@ -2,7 +2,7 @@
 // #define enA 8
 #define in1 10
 #define in2 11
-#define sw 4
+#define sw 14
 #define enA 12
 
 int pwm;
@@ -36,7 +36,7 @@ void setup()
   digitalWrite(in2, HIGH);
 
 
-  pwm = map(70,0,100,0,255);
+  pwm = map(100,0,100,0,255);
   analogWrite(enA,pwm);
 
   Serial.begin(115200);
@@ -48,9 +48,10 @@ void loop()
 {
   if (flag)
   {
+    Serial.println("Motor running?");
     analogWrite(enA,255);
-    digitalWrite(in1, HIGH);
-    digitalWrite(in2, LOW);
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
     delay(50);
     analogWrite(enA,pwm);
     
@@ -62,6 +63,7 @@ void loop()
   }
   else
   {
+
     digitalWrite(in1, LOW);
     digitalWrite(in2, LOW);
   }
