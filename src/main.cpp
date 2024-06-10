@@ -36,7 +36,7 @@ void setup()
   digitalWrite(in2, HIGH);
 
 
-  pwm = map(100,0,100,0,255);
+  pwm = map(40,0,100,0,255);
   analogWrite(enA,pwm);
 
   Serial.begin(115200);
@@ -49,13 +49,13 @@ void loop()
   if (flag)
   {
     Serial.println("Motor running?");
-    analogWrite(enA,255);
+    analogWrite(enA,pwm);
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
-    delay(50);
+    delay(300);
     analogWrite(enA,pwm);
     
-    delay(300);
+    // delay(300);
 
     digitalWrite(in1, HIGH);
     digitalWrite(in2, HIGH);
