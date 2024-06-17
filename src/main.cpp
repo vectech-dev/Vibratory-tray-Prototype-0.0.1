@@ -6,8 +6,12 @@
 #define enA 12
 
 int pwm;
+int dutyCycle = 35;
+int onTime = 300;
+int waitTime = 500;
 
 bool flag = false;
+
 int lastDebounceTime, lastReading;
 
 void state_change()
@@ -36,7 +40,7 @@ void setup()
   digitalWrite(in2, HIGH);
 
 
-  pwm = map(40,0,100,0,255);
+  pwm = map(dutyCycle,0,100,0,255);
   analogWrite(enA,pwm);
 
   Serial.begin(115200);
@@ -52,20 +56,20 @@ void loop()
     analogWrite(enA,pwm);
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
-    delay(300);
-    analogWrite(enA,pwm);
+    delay(onTime);
+
     
     // delay(300);
-
+    analogWrite(enA,255);
     digitalWrite(in1, HIGH);
     digitalWrite(in2, HIGH);
-    delay(1000);
+    delay(waitTime);
   }
   else
   {
 
-    digitalWrite(in1, LOW);
-    digitalWrite(in2, LOW);
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, HIGH);
   }
   int btnState = digitalRead(sw);
 
