@@ -6,9 +6,10 @@
 #define enA 12
 
 int pwm;
-int dutyCycle = 35;
-int onTime = 300;
+int dutyCycle = 41;
+int onTime = 190;
 int waitTime = 500;
+int count =0;
 
 bool flag = false;
 
@@ -24,7 +25,10 @@ void state_change()
   else
   {
     Serial.println("Motor stopped");
+    Serial.print("Number of steps: ");
+    Serial.println(count);
     flag = false;
+    count = 0;
   }
 }
 
@@ -52,13 +56,13 @@ void loop()
 {
   if (flag)
   {
-    Serial.println("Motor running?");
+    // Serial.println("Motor running?");
     analogWrite(enA,pwm);
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
     delay(onTime);
 
-    
+    count++;
     // delay(300);
     analogWrite(enA,255);
     digitalWrite(in1, HIGH);
