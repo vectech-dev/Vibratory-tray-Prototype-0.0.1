@@ -6,10 +6,10 @@
 #define enA 12
 
 int pwm;
-int dutyCycle = 41;
-int onTime = 190;
+int dutyCycle = 53;
+int onTime = 160;
 int waitTime = 500;
-int count =0;
+int count = 0;
 
 bool flag = false;
 
@@ -43,9 +43,8 @@ void setup()
   digitalWrite(in1, LOW);
   digitalWrite(in2, HIGH);
 
-
-  pwm = map(dutyCycle,0,100,0,255);
-  analogWrite(enA,pwm);
+  pwm = map(dutyCycle, 0, 100, 0, 255);
+  analogWrite(enA, pwm);
 
   Serial.begin(115200);
   lastDebounceTime = millis();
@@ -57,14 +56,16 @@ void loop()
   if (flag)
   {
     // Serial.println("Motor running?");
-    analogWrite(enA,pwm);
+    analogWrite(enA, pwm);
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
     delay(onTime);
 
     count++;
     // delay(300);
-    analogWrite(enA,255);
+    Serial.print("jump=");
+    Serial.println(count);
+    analogWrite(enA, 255);
     digitalWrite(in1, HIGH);
     digitalWrite(in2, HIGH);
     delay(waitTime);
@@ -77,17 +78,20 @@ void loop()
   }
   int btnState = digitalRead(sw);
 
-	//If we detect LOW signal, button is pressed
-	if (btnState == LOW) {
-		//if 50ms have passed since last LOW pulse, it means that the
-		//button has been pressed, released and pressed again
-		if (millis() - lastDebounceTime > 50) {
-			Serial.println("Button pressed!");
+  // If we detect LOW signal, button is pressed
+  if (btnState == LOW)
+  {
+    // if 50ms have passed since last LOW pulse, it means that the
+    // button has been pressed, released and pressed again
+    
+    if (millis() - lastDebounceTime > 500)
+    {
+      Serial.println("Button pressed!");
       state_change();
-		}
+    }
 
-		// Remember last button press event
-		lastDebounceTime = millis();
-	}
+    // Remember last button press event
+    lastDebounceTime = millis();
+  }
   delay(10);
 }
