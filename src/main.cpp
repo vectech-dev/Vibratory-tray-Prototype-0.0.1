@@ -6,7 +6,7 @@
 #define enA 12
 
 int pwm;
-int dutyCycle = 53; //Percent of time the motor stays on in a single cycle.
+int dutyCycle = 60; //Percent of time the motor stays on in a single cycle.
 int onTime = 160; // The amount of time the motor stays on in a single step.
 int waitTime = 500;
 int count = 0;
