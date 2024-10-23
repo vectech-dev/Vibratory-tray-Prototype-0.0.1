@@ -56,6 +56,7 @@ void loop()
     // Serial.println("Motor running?");
     if (!isVibRunning && currentMillis - previousMillisVib >= offTimeVib)
     {
+      // Serial.println("reaching");
       analogWrite(vib_en, pwm);
       digitalWrite(vib_in1, LOW);
       digitalWrite(vib_in2, HIGH);
@@ -67,6 +68,8 @@ void loop()
       analogWrite(vib_en, 255);
       digitalWrite(vib_in1, HIGH);
       digitalWrite(vib_in2, HIGH);
+      isVibRunning = false;
+      previousMillisVib = currentMillis;
     }
   }
   // delay(onTimeVib);
