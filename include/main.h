@@ -20,4 +20,4 @@ bool isVibRunning;
 bool isBulkRunning;
 
 long currentMillis;
-long previousMillis;
+long previousMillisVib;
