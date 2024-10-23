@@ -33,18 +33,47 @@ void setup()
   pinMode(vib_in2, OUTPUT);
   pinMode(vib_en, OUTPUT);
 
+  pinMode(bulk_EN, OUTPUT);
+  pinMode(bulk_IN1, OUTPUT);
+  pinMode(bulk_IN2, OUTPUT);
+
   pinMode(sw, INPUT_PULLUP);
 
   // Set initial rotation direction
-  digitalWrite(vib_in1, LOW);
-  digitalWrite(vib_in2, HIGH);
-
-  pwm = map(dutyVib, 0, 100, 0, 255);
-  analogWrite(vib_en, pwm);
-
   Serial.begin(115200);
   lastDebounceTime = millis();
   lastReading = HIGH;
+
+  pwmVib = map(dutyVib, 0, 100, 0, 255);
+  pwmBulk = map(dutyBulk, 0, 100, 0, 255);
+}
+
+void startVibMotor()
+{
+  analogWrite(vib_en, pwmVib);
+  digitalWrite(vib_in1, LOW);
+  digitalWrite(vib_in2, HIGH);
+}
+
+void stopVibMotor()
+{
+  analogWrite(vib_en, 255);
+  digitalWrite(vib_in1, HIGH);
+  digitalWrite(vib_in2, HIGH);
+}
+
+void startBulkMotor()
+{
+  analogWrite(bulk_EN, pwmBulk);
+  digitalWrite(bulk_IN1, LOW);
+  digitalWrite(bulk_IN2, HIGH);
+}
+
+void stopBulkMotor()
+{
+  analogWrite(bulk_EN, 255);
+  digitalWrite(bulk_IN1, HIGH);
+  digitalWrite(bulk_IN2, HIGH);
 }
 
 void loop()
@@ -57,34 +86,38 @@ void loop()
     if (!isVibRunning && currentMillis - previousMillisVib >= offTimeVib)
     {
       // Serial.println("reaching");
-      analogWrite(vib_en, pwm);
-      digitalWrite(vib_in1, LOW);
-      digitalWrite(vib_in2, HIGH);
+      startVibMotor();
       isVibRunning = true;
       previousMillisVib = currentMillis;
     }
     else if (isVibRunning && currentMillis - previousMillisVib >= onTimeVib)
     {
-      analogWrite(vib_en, 255);
-      digitalWrite(vib_in1, HIGH);
-      digitalWrite(vib_in2, HIGH);
+      stopVibMotor();
       isVibRunning = false;
       previousMillisVib = currentMillis;
     }
-  }
-  // delay(onTimeVib);
 
-  // count++;
-  // delay(300);
-  // Serial.print("jump=");
-  // Serial.println(count);
+    if (!isBulkRunning && currentMillis - previousMillisBulk >= offTimeBulk)
+    {
+      startBulkMotor();
+      isBulkRunning = true;
+      previousMillisBulk = currentMillis;
+    }
+    else if (isBulkRunning && currentMillis - previousMillisBulk >= onTimeBulk)
+    {
+      stopBulkMotor();
+      isBulkRunning = false;
+      previousMillisBulk = currentMillis;
+    }
+  }
 
   else
   {
-    analogWrite(vib_en, 255);
-    digitalWrite(vib_in1, HIGH);
-    digitalWrite(vib_in2, HIGH);
+    stopVibMotor();
+    stopBulkMotor();
   }
+
+  
   int btnState = digitalRead(sw);
 
   // If we detect LOW signal, button is pressed
